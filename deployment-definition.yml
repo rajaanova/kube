@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rajapp-deployment
+  labels:
+    app: rajapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: rajapp-pod
+      labels:
+        app: rajapp
+        type: front-end
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: webapp-config-map
+            - secretRef:
+                name: webapp-secret-map
+          name: rajcontainer
+          image: rajaanova/raj:1.1.2
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rajapp-replicaset
+  labels:
+    app: rajapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: rajapp-pod
+      labels:
+        app: rajapp
+        type: front-end
+    spec:
+      containers:
+        - name: rajcontainer
+          image: rajaanova/raj:1.0.0
+  replicas: 6
+  selector:
+    matchLabels:
+      type: front-end
